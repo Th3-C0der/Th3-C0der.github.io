@@ -1,61 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Fireworks</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iFrame Test</title>
     <style>
-body{
-  background:#000;
-  margin:0;
-  width:100%;
-  overflow:hidden;
-}
-</style>
-    <canvas></canvas>
-
-    <script>
-    
-        var t = 0;
-        var c = document.querySelector("canvas");     
-        var $ = c.getContext('2d');
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-        $.fillStyle = 'hsla(0,0%,0%,1)';
-
-        window.addEventListener('resize', function() {
-          c.width = window.innerWidth;
-          c.height = window.innerHeight;
-        }, false);
-
-        function draw() {
-          $.globalCompositeOperation = 'source-over';
-          $.fillStyle = 'hsla(0,0%,0%,.1)';
-          $.fillRect(0, 0, c.width, c.height);
-          var foo, i, j, r;
-          foo = Math.sin(t) * 2 * Math.PI;
-          for (i=0; i<400; ++i) {
-            r = 400 * Math.sin(i * foo);
-            $.globalCompositeOperation = '';
-            $.fillStyle = 'hsla(' + i + 12 + ',100%, 60%,1)';
-            $.beginPath();
-            $.arc(Math.sin(i) * r + (c.width / 2), 
-                  Math.cos(i) * r + (c.height / 2), 
-                  1.5, 0, Math.PI * 2);
-            $.fill();
-
-          }
-          t += 0.000005;
-          return t %= 2 * Math.PI;
-
-        };
-
-        function run() {
-          window.requestAnimationFrame(run);
-          draw();
+        body {
+            background-color: black;
+            color: white;
         }
-        run();
-    </script>
+
+        h1 {
+            color: green;
+        }
+
+        iframe {
+            border: 2px solid green;
+        }
+
+        figure {
+    border: 2px solid green;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+        figcaption {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1>iFrame Test</h1>
+        <p>An <i>iframe</i> (short for inline frame) is an HTML element that allows you to embed content from another
+            website within your own webpage. It's like a window that displays external web content without
+            redirecting away from your site.</p>
+    </section>
+
+    <figure>
+        <iframe src="https://Th3-C0der.github.io" frameborder="0" width="120%" height="600"></iframe>
+    </figure>
 </body>
+
 </html>
