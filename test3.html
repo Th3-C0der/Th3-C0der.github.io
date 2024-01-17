@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #1f1f1f;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(12, 30px);
+            gap: 2px;
+            background-color: #333;
+            border: 2px solid #555;
+            margin-bottom: 20px;
+        }
+
+        .cell {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #666;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+            user-select: none; /* Disable text selection */
+        }
+
+        .revealed {
+            background-color: #888;
+            cursor: default;
+        }
+
+        .mine {
+            background-color: #b71c1c;
+            color: #fff;
+        }
+
+        .dark-text {
+            color: #000;
+        }
+
+        .explode {
+            animation: explode 0.5s ease;
+        }
+
+        .score-container {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .flag-mode {
+            color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="score-container">
+    Score: <span id="score">0</span> | Remaining Mines: <span id="remaining-mines">30</span>
+    <button onclick="toggleFlagMode()">Toggle Flag Mode</button>
+</div>
+<div id="board"></div>
+
+<script>
+    const boardSize = 12;
+    const numMines = 30;
+    let board = [];
+    let score = 0;
+    let remainingMines = numMines;
+    let flagMode = false;
+
+    function initializeBoard() {
+        // ... (same as before)
+    }
+
+    function countMines(x, y) {
+        // ... (same as before)
+    }
+
+    function revealCell(x, y) {
+        // ... (same as before)
+    }
+
+    function toggleFlagMode() {
+        flagMode = !flagMode;
+        const flagButton = document.querySelector('button');
+        flagButton.textContent = flagMode ? 'Flag Mode ON' : 'Toggle Flag Mode';
+    }
+
+    function renderBoard() {
+        const boardElement = document.getElementById('board');
+        boardElement.innerHTML = '';
+
+        for (let i = 0; i < boardSize; i++) {
+            for (let j = 0; j < boardSize; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.id = `cell-${i}-${j}`;
+
+                if (board[i][j].revealed) {
+                    cell.classList.add('revealed');
+                    if (board[i][j].isMine) {
+                        cell.classList.add('mine');
+                        cell.textContent = 'ð£';
+                    } else {
+                        cell.textContent = board[i][j].count || '';
+                    }
+                } else {
+                    cell.addEventListener('click', () => {
+                        if (flagMode) {
+                            // Toggle flag on right-click
+                            if (event.button === 2) {
+                                board[i][j].flagged = !board[i][j].flagged;
+                                renderBoard();
+                            }
+                        } else {
+                            revealCell(i, j);
+                            renderBoard();
+                        }
+                    });
+                    // Prevent context menu on right-click
+                    cell.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                    });
+                }
+
+                if (board[i][j].flagged) {
+                    cell.innerHTML = '&#9873;'; // Flag emoji
+                }
+
+                boardElement.appendChild(cell);
+            }
+        }
+
+        // Update score and remaining mines
+        document.getElementById('score').textContent = score;
+        document.getElementById('remaining-mines').textContent = remainingMines;
+    }
+
+    initializeBoard();
+    renderBoard();
+</script>
+
+</body>
+</html>
