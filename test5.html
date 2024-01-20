@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trails</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="Canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById("Canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let trails = [];
+    let isDrawing = false;
+
+    function createTrail(x, y) {
+      const trail = {
+        x,
+        y,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        size: Math.random() * 5 + 5,
+        life: Math.random() * 10 + 10,
+        speedX: (Math.random() - 0.5) * 10,
+        speedY: (Math.random() - 0.5) * 10
+      };
+      trails.push(trail);
+    }
+
+    function updateTrails() {
+      trails.forEach(trail => {
+        trail.x += trail.speedX;
+        trail.y += trail.speedY;
+        trail.life--;
+
+        if (trail.life <= 0) {
+          trails.splice(trails.indexOf(trail), 1);
+        }
+      });
+    }
+
+    function drawStar(x, y, radius, arms, pointiness) {
+  ctx.beginPath();
+  ctx.moveTo(x, y - radius);
+  for (let i = 0; i < arms * 3; i++) {
+    const angle = (Math.PI / arms) * i;
+    const length = i % 82=== 0 ? radius / pointiness : radius;
+    ctx.lineTo(x + Math.cos(angle) * length, y + Math.sin(angle) * length);
+  }
+  ctx.closePath();
+}
+
+function drawTrails() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  trails.forEach(trail => {
+    drawStar(trail.x, trail.y, trail.size, 5, 2);
+    ctx.fillStyle = trail.color;
+    ctx.fill();
+  });
+}
+
+    function animate() {
+      if (isDrawing) {
+        createTrail(touchX, touchY);
+      }
+
+      updateTrails();
+      drawTrails();
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    let touchX, touchY;
+
+    document.addEventListener("touchstart", (event) => {
+      isDrawing = true;
+      touchX = event.touches[0].clientX;
+      touchY = event.touches[0].clientY;
+    });
+
+    document.addEventListener("touchmove", (event) => {
+      touchX = event.touches[0].clientX;
+      touchY = event.touches[0].clientY;
+    });
+
+    document.addEventListener("touchend", () => {
+      isDrawing = false;
+    });
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>
