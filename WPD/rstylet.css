@@ -1,0 +1,143 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #F5F5F5;
+  color: #333333;
+}
+img{
+	border-radius: 7px;
+	}
+main{
+	margin: 0;
+	padding: 0;
+	}
+header {
+  background-color: #FFA500;
+  border: 1px solid orangered;
+  color: #000000;
+  text-align: center;
+  padding: 20px 0;
+}
+nav {
+  background-color: #333333;
+  border: 1px solid orangered;
+  color: #000000;
+  padding: 10px 0;
+  
+}
+
+nav ul {
+  list-style: none;
+  text-align: center;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+section {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.product {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+footer {
+  background-color: #F5F5DC;
+  border: 1px solid orangered;
+  color: #333333;
+  text-align: center;
+  padding: 0;
+}
+.recipe-details {
+      display: none;
+      text-align: justify;
+    }
+.recipe {
+	margin-top: 25px;
+	border: 5px solid orange;
+	background-color: #90EE90;
+	color: #0f0f0f;
+    }
+.full-recipe {
+      cursor: pointer;
+      color: green;
+      text-decoration: underline;
+    }
+    
+#cb {
+      display: none;
+    }
+#cb1 {
+      display: none;
+    }
+#cb2 {
+      display: none;
+    }
+#cb3 {
+      display: none;
+    }
+#cb4 {
+      display: none;
+    }
+#cb5 {
+      display: none;
+    }
+#cb6 {
+      display: none;
+    }
+#cb7 {
+      display: none;
+    }
+#cb8 {
+      display: none;
+    }
+#cb9 {
+      display: none;
+    }
+#cb10 {
+      display: none;
+    }
+#cb:checked ~ .recipe-details {
+      display: block;
+    }
+#cb1:checked ~ .recipe-details {
+      display: block;
+    }
+#cb2:checked ~ .recipe-details {
+      display: block;
+    }
+#cb3:checked ~ .recipe-details {
+      display: block;
+    }
+#cb4:checked ~ .recipe-details {
+      display: block;
+    }
+#cb5:checked ~ .recipe-details {
+      display: block;
+    }
+#cb6:checked ~ .recipe-details {
+      display: block;
+    }
+#cb7:checked ~ .recipe-details {
+      display: block;
+    }
+#cb8:checked ~ .recipe-details {
+      display: block;
+    }
+#cb9:checked ~ .recipe-details {
+      display: block;
+    }
+#cb10:checked ~ .recipe-details {
+      display: block;
+    }
